@@ -3,11 +3,16 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
     namespace 'com.example.paginationproject'
     compileSdk 33
+
+    buildFeatures{
+        dataBinding true
+    }
 
     defaultConfig {
         applicationId "com.example.paginationproject"
@@ -68,4 +73,8 @@ dependencies {
 
     def paging_version = "3.1.1"
     implementation "androidx.paging:paging-runtime:$paging_version"
+
+    def nav_version = "2.5.0"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
 }

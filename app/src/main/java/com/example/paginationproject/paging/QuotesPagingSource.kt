@@ -6,9 +6,12 @@ import com.example.paginationproject.models.ResultModel
 import com.example.paginationproject.network.QuotesApi
 import java.lang.Exception
 
-class QuotesPagingSource(val quotesApi: QuotesApi) : PagingSource<Int, ResultModel>(){
+class QuotesPagingSource(private val quotesApi: QuotesApi) : PagingSource<Int, ResultModel>(){
     override fun getRefreshKey(state: PagingState<Int, ResultModel>): Int? {
-        TODO("Not yet implemented")
+        return state.anchorPosition?.let {
+            state.closestPageToPosition(it)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
+        }
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultModel> {
